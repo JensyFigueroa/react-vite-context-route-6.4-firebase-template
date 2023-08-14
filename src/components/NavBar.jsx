@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { NavLink, useNavigate, Navigate } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
+import { logout } from "../config/firebase";
 
 const NavBar = () => {
-  const { user, setUser } = useUserContext();
-  const navigate = useNavigate();
+  const { user } = useUserContext();
+
 
   /* ==== 1er Form ==== */
   /*   useEffect(() => { 
@@ -12,6 +13,15 @@ const NavBar = () => {
               navigate('/')
           }
        },[user]) */
+
+
+       const handleLogout = async() => { 
+          try {
+            await logout()
+          } catch (error) {
+            console.log(error)
+          }
+        }
 
   return (
     <nav className="bg-dark">
@@ -31,7 +41,7 @@ const NavBar = () => {
       {/* ====== 2do Form ====== */}
       {user ? <>
                     <NavLink to={'/dashboard'} className='btn btn-outline-primary'>Dashboard</NavLink>
-                    <button onClick={() => setUser(false)}>Log Out</button>
+                    <button onClick={handleLogout}>Log Out</button>
                 </> 
             : <Navigate to={'/'}/>}
     </nav>

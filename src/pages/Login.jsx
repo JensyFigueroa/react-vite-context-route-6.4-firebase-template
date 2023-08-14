@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../config/firebase";
+import {useUserContext} from '../context/UserContext'
 
 const Login = () => {
 
@@ -13,6 +14,12 @@ const Login = () => {
 
     //DESESTRUCTURAMOS EL FORM
     const {email, password} = form
+
+    const {user} = useUserContext()
+    useEffect(() => {
+      if(user) navigate('/dashboard')
+    }, [user])
+    
 
     const handleChange = (e) => { 
         const {name, value} = e.target
@@ -28,7 +35,6 @@ const Login = () => {
         } catch (error) {
             console.log(error)
         }
-        navigate('/dashboard')
      }
 
   return (

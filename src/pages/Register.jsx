@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../config/firebase";
+import { useRedirectActiveUser } from "../hooks/useRedirectActiveUser";
+import { useUserContext } from "../context/UserContext";
 
 const Register = () => {
 
@@ -13,6 +15,11 @@ const Register = () => {
 
     //DESESTRUCTURAMOS EL FORM
     const {email, password} = form
+
+    const {user} =  useUserContext()
+
+    //usamos el hook que se creo para useRedirectActiveUser al usuario
+    useRedirectActiveUser(user, '/dashboard')
 
     const handleChange = (e) => { 
         const {name, value} = e.target

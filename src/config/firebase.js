@@ -1,6 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -11,16 +16,20 @@ const firebaseConfig = {
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
-}
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+};
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app)
+export const auth = getAuth(app);
 
-export const login = ({email, password}) => {
-    return signInWithEmailAndPassword(auth, email, password)
-}  
+export const login = ({ email, password }) => {
+  return signInWithEmailAndPassword(auth, email, password);
+};
 
-export const register = ({email, password}) => { 
-    return createUserWithEmailAndPassword(auth, email, password)
+export const register = ({ email, password }) => {
+  return createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const logout = () => { 
+  return signOut(auth)
  }
